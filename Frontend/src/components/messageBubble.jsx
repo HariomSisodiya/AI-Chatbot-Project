@@ -15,52 +15,20 @@ function MessageBubble({
   currentAUM,
   transaction,
 }) {
-  // ✅ Check if we should show Clients list
   const shouldShowClients =
     !isUser &&
     clients &&
-    clients.length > 0 &&
-    (message.showClients === true ||
-      (message.text &&
-        (message.text.toLowerCase().includes("client") ||
-          message.text.toLowerCase().includes("customer") ||
-          message.text.toLowerCase().includes("list") ||
-          message.text.toLowerCase().includes("show clients"))));
-
-  // Helper to check if message is an actual AUM request from user
-  const isCurrentAumRequest = (text) => {
-    const keywords = [
-      "current aum",
-      "total aum",
-      "get current aum",
-      "my aum",
-      "show current aum",
-      "give my current aum",
-      "show my aum",
-      "mera aum",
-      "show aum",
-      "current assets",
-    ];
-    return keywords.some((keyword) => text.toLowerCase().includes(keyword));
-  };
+    clients.length > 0 && message.showClients === true;
 
   const shouldShowAUM =
-    !isUser && // Bot message
-    currentAUM && // AUM exists
-    (message.showAUM === true || // Explicitly forced
-      (message.text && isCurrentAumRequest(message.text))); // Only show if actual AUM request
+    !isUser &&
+    currentAUM && message.showAUM === true;
 
   const shouldShowTransaction =
     !isUser &&
     transaction &&
     transaction.length > 0 &&
-    (message.showTransaction === true ||
-      (message.text &&
-        (message.text.toLowerCase().includes("latest transaction") ||
-          message.text.toLowerCase().includes("recent transactions") ||
-          message.text.toLowerCase().includes("last 10 transactions") ||
-          message.text.toLowerCase().includes("show transactions") ||
-          message.text.toLowerCase().includes("my transactions"))));
+    message.showTransaction === true;
 
   return (
     <div className={`d-flex mb-4 ${isUser ? "justify-content-end" : ""}`}>

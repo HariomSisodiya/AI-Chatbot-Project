@@ -22,46 +22,38 @@ export const getAIAns = async (req, res) => {
 
     // 📌 Handle Mutual Fund specific intents
     if (intent === "clientList") {
-      if (!distributorId) {
-        return res.json({
-          answer: "Please provide distributorId.",
-          requireDistributorId: true,
-        });
-      }
       const clients = await fetchClientsByDistributorId(distributorId);
       if (!clients || clients.length === 0) {
         return res.json({
           success: true,
           answer: "No clients found for the given distributor.",
           clients: [],
+          showClients: true,
         });
       }
       return res.json({
         success: true,
         answer: "Here is your client list.",
         clients,
+        showClients: true,
       });
     }
 
     if (intent === "currentAum") {
-      if (!distributorId) {
-        return res.json({
-          answer: "Please provide distributorId.",
-          requireDistributorId: true,
-        });
-      }
       const totalAUM = await fetchCurrentAum(distributorId);
       if (!totalAUM || totalAUM === 0) {
         return res.json({
           success: true,
           answer: "No AUM data found for the given distributor.",
           aum: 0,
+          showAUM: true,
         });
       }
       return res.json({
         success: true,
         answer: "Your current AUM:",
         aum: totalAUM,
+        showAUM: true,
       });
     }
 
@@ -72,12 +64,14 @@ export const getAIAns = async (req, res) => {
           success: true,
           answer: "No transactions found.",
           transactions: [],
+          showTransaction: tru,
         });
       }
       return res.json({
         success: true,
         answer: "Here are your latest transactions.",
         transactions,
+        showTransaction: tru,
       });
     }
 

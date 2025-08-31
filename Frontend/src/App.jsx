@@ -58,6 +58,9 @@ export default function RedAIChatbot() {
         text: data.answer || "Sorry, I couldn't fetch a response.",
         sender: "bot",
         timestamp: new Date(),
+        showClients: data.showClients || false, // ✅ new
+        showAUM: data.showAUM || false, // ✅ new
+        showTransaction: data.showTransaction || false, // ✅ new
       };
 
       setMessages((prev) => [...prev, botMsg]);
