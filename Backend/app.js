@@ -2,8 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import AIRouter from "./Router/ai.router.js";
 import cors from "cors";
+import AIRouter from './Router/ai.router.js';
 
 const app = express();
 dotenv.config();
@@ -13,7 +13,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(async() => {
+  .then(() => {
     app.use(cors());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
